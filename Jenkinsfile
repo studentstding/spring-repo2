@@ -20,9 +20,10 @@ spec:
         stage('Build') {
             steps {
                 container('maven') {
+                    dir('demo/demo') {
                     sh 'mvn --version'
                     sh 'mvn clean package'
-                }
+                }}
             }
         }
     }
