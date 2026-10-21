@@ -11,21 +11,39 @@ spec:
       command:
         - cat
       tty: true
-
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:v1.23.2-debug
-      command:
-        - /busybox/cat
-      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
 '''
         }
     }
 
     stages {
+        stage('Debug') {
+            steps {
+                container('maven') {
+                    sh 'pwd'
+                    sh 'find . -name pom.xml'
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 container('maven') {
                     dir('demo/demo') {
-                        sh 'mvn --version'
                         sh 'mvn clean package'
-              
+                    }
+                }
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'demo/demo/target/*.jar',
+                                 fingerprint: true
+            }
+        }
+    }
+}
