@@ -41,7 +41,7 @@ spec:
                         /kaniko/executor \
                           --context="${WORKSPACE}/demo/demo" \
                           --dockerfile="${WORKSPACE}/demo/demo/Dockerfile" \
-                          --no-push
+                          --destination=europe-central2-docker.pkg.dev/mr-dev12/docker-repo/spring-demo:${BUILD_NUMBER}
                     '''
                 }
             }
