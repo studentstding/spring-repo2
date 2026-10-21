@@ -20,7 +20,7 @@ pipeline {
 
     post {
     success {
-        archiveArtifacts artifacts: 'target/*.jar'
+        archiveArtifacts artifacts: 'demo/demo/target/*.jar'
     }
 }
 }
