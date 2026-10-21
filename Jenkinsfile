@@ -12,12 +12,10 @@ spec:
     command: ['cat']
     tty: true
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:v1.23.2
+    image: gcr.io/kaniko-project/executor:v1.23.2-debug
     command:
-    - sleep
-    args:
-    - "999999"  
-'''
+    - /busybox/cat
+    tty: true
         }
     }
 
