@@ -18,9 +18,16 @@ pipeline {
         }
     }
 
+     stage('Docker') {
+
+            steps {
+                sh 'docker version'
+            }
+
     post {
     success {
         archiveArtifacts artifacts: 'demo/demo/target/*.jar'
     }
+    
 }
 }
