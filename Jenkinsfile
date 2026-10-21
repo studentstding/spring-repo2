@@ -6,29 +6,24 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
+    # Kontener 1: kompiluje aplikację
     - name: maven
       image: maven:3.9.9-eclipse-temurin-21
       command:
         - cat
       tty: true
-      resources:
-        requests:
-          cpu: 100m
-          memory: 256Mi
+
+    # Kontener 2: buduje obraz z Dockerfile
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:v1.23.2-debug
+      command:
+        - /busybox/cat
+      tty: true
 '''
         }
     }
 
     stages {
-        stage('Debug') {
-            steps {
-                container('maven') {
-                    sh 'pwd'
-                    sh 'find . -name pom.xml'
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 container('maven') {
@@ -39,10 +34,16 @@ spec:
             }
         }
 
-        stage('Archive') {
+        stage('Build Image') {
             steps {
-                archiveArtifacts artifacts: 'demo/demo/target/*.jar',
-                                 fingerprint: true
+                container('kaniko') {
+                    sh '''
+                        /kaniko/executor \
+                          --context="${WORKSPACE}/demo/demo" \
+                          --dockerfile="${WORKSPACE}/demo/demo/Dockerfile" \
+                          --no-push
+                    '''
+                }
             }
         }
     }
