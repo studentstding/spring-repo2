@@ -24,6 +24,7 @@ pipeline {
                 sh 'docker version'
             }
 
+     }
     post {
     success {
         archiveArtifacts artifacts: 'demo/demo/target/*.jar'
