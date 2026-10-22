@@ -1,5 +1,11 @@
 pipeline {
     parameters {
+    choice(
+        name: 'ENVIRONMENT',
+        choices: ['dev', 'prod'],
+        description: 'Gdzie wdrożyć aplikację'
+    )
+        
         string(
             name: 'param1',
             defaultValue: 'default val'
