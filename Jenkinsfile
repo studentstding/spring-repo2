@@ -1,15 +1,5 @@
 pipeline {
-    withCredentials(
-        [
-            usernamePassword(
-                credentialsId: 'gcp-sa',
-                usernameVariable: "USER",
-                passwordVariable: "PASS"
-            )
-        ]
-    ){
-        sh "echo $USER pass=$PASS"
-    }
+   
 
     
     parameters {
@@ -56,8 +46,20 @@ spec:
     stages {
 stage('print') {
     steps {
+         withCredentials(
+        [
+            usernamePassword(
+                credentialsId: 'gcp-sa',
+                usernameVariable: "USER",
+                passwordVariable: "PASS"
+            )
+        ]
+    ){
+        sh "echo $USER pass=$PASS"
+
         sh "echo ${params.param1}"
-    }
+         }
+}
 }
         
         stage('Build') {
