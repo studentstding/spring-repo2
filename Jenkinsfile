@@ -31,6 +31,12 @@ spec:
     }
 
     stages {
+stage('print') {
+    steps {
+        sh 'echo ${params.param1}
+    }
+}
+        
         stage('Build') {
             steps {
                 container('maven') {
