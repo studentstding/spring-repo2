@@ -2,7 +2,7 @@ pipeline {
     parameters {
       text(
           name: 'Message'
-          defaultValue: "message default"
+          defaultValue: 'message default'
       )  
     choice(
         name: 'ENVIRONMENT',
