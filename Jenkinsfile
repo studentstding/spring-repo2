@@ -1,3 +1,5 @@
+@Library('company-library') _
+
 pipeline {
    
 
@@ -74,14 +76,10 @@ stage('print') {
 
         stage('Build Image') {
             steps {
-                container('kaniko') {
-                    sh '''
-                        /kaniko/executor \
-                          --context="${WORKSPACE}/demo/demo" \
-                          --dockerfile="${WORKSPACE}/demo/demo/Dockerfile" \
-                          --destination=europe-central2-docker.pkg.dev/mr-dev12/docker-repo/spring-demo:${BUILD_NUMBER}
-                    '''
-                }
+                  buildImage(
+                  'europe-central2-docker.pkg.dev/mr-dev12/docker-repo/spring-demo',
+                  "${BUILD_NUMBER}"
+                )
             }
         }
     }
