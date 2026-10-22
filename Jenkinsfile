@@ -39,7 +39,7 @@ spec:
     stages {
 stage('print') {
     steps {
-        sh 'echo ${params.param1}
+        sh "echo ${params.param1}"
     }
 }
         
