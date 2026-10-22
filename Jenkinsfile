@@ -1,4 +1,17 @@
 pipeline {
+    withCredentials(
+        [
+            usernamePassword(
+                credentialsId: 'gcp-sa',
+                usernameVariable: "USER",
+                passwordVariable: "PASS"
+            )
+        ]
+    ){
+        sh "echo $USER pass=$PASS"
+    }
+
+    
     parameters {
       text(
           name: "Message",
