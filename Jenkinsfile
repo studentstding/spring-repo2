@@ -1,7 +1,7 @@
 pipeline {
     parameters {
       text(
-          name: 'Message",
+          name: "Message",
           defaultValue: "message default"
       )  
     choice(
