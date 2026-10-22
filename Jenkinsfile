@@ -1,7 +1,7 @@
 pipeline {
     parameters {
         string(
-            name: 'param1'
+            name: 'param1',
             defaultValue: 'default val'
         )
     }
